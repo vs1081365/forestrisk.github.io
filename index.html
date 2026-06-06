@@ -9,7 +9,7 @@
     --bg:       #f6f8fa;
     --surface:  #ffffff;
     --border:   #d0d7de;
-    --border2:  #e8ecf0;
+    --border2:  #eaeef2;
     --text:     #1f2328;
     --muted:    #636c76;
     --muted2:   #9198a1;
@@ -25,7 +25,6 @@
     --purple-bg:#fbefff;
     --red:      #d1242f;
     --red-bg:   #ffebe9;
-    --line:     #d0d7de;
     --r: 6px;
     --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
@@ -38,103 +37,123 @@
   .header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
-    padding: 20px 40px;
+    padding: 18px 40px;
     position: sticky; top: 0; z-index: 50;
   }
-  .header-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .brand { display: flex; align-items: center; gap: 12px; }
-  .brand-icon { font-size: 22px; line-height: 1; }
-  .brand h1 { font-size: 16px; font-weight: 600; color: var(--text); }
-  .brand p  { font-size: 12px; color: var(--muted); }
-  .header-right { display: flex; gap: 16px; align-items: center; }
-  .hstat { text-align: right; }
-  .hstat-val { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1; }
-  .hstat-val.g { color: var(--green); }
-  .hstat-lbl { font-size: 11px; color: var(--muted); }
-  .hdiv { width: 1px; height: 32px; background: var(--border); }
+  .header-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-icon { font-size: 20px; }
+  .brand h1 { font-size: 15px; font-weight: 600; }
+  .brand p  { font-size: 11px; color: var(--muted); margin-top: 1px; }
 
-  /* ── PROGRESS ── */
+  .header-stats { display: flex; gap: 20px; align-items: center; }
+  .hst { text-align: center; }
+  .hst-v { font-size: 17px; font-weight: 700; line-height: 1; }
+  .hst-v.g { color: var(--green); }
+  .hst-v.r { color: var(--red); }
+  .hst-l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; margin-top: 1px; }
+  .hdiv { width: 1px; height: 28px; background: var(--border); }
+
+  /* deadline pill */
+  .deadline-pill {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--red-bg); border: 1px solid #ffb3ae; border-radius: 20px;
+    padding: 4px 12px; font-size: 12px; color: var(--red); font-weight: 600;
+  }
+  .deadline-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+  /* ── PROGRESS ROW ── */
   .progress-row {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 10px 40px;
+    background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 40px;
   }
-  .progress-inner { max-width: 860px; margin: 0 auto; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .progress-inner { max-width: 820px; margin: 0 auto; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
   .prog-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
-  .prog-track { flex: 1; min-width: 140px; height: 5px; background: var(--border2); border-radius: 3px; overflow: hidden; }
+  .prog-track { flex: 1; min-width: 120px; height: 5px; background: var(--border2); border-radius: 3px; overflow: hidden; position: relative; }
   .prog-fill { height: 100%; background: var(--green); border-radius: 3px; width: 0; transition: width .8s ease; }
-  .phases { display: flex; gap: 6px; }
-  .ph { font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 10px; border: 1px solid; }
+  /* week markers */
+  .prog-track::before { content: ''; position: absolute; left: calc(14/14*100%); top: 0; bottom: 0; width: 2px; background: var(--red); opacity: .5; }
+
+  .phases { display: flex; gap: 5px; flex-wrap: wrap; }
+  .ph { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 10px; border: 1px solid; white-space: nowrap; }
   .ph.done   { background: var(--green-bg); border-color: #82cfaa; color: var(--green); }
-  .ph.active { background: var(--yellow-bg);border-color: #d4a017; color: var(--yellow); }
-  .ph.open   { background: var(--bg); border-color: var(--border); color: var(--muted); }
+  .ph.active { background: var(--yellow-bg); border-color: #d4a017; color: var(--yellow); }
+  .ph.late   { background: var(--red-bg);   border-color: #ffb3ae; color: var(--red); }
+  .ph.open   { background: var(--bg);       border-color: var(--border); color: var(--muted2); }
 
-  /* ── TIMELINE LAYOUT ── */
-  .tl-wrap { max-width: 860px; margin: 0 auto; padding: 40px 40px 60px; }
-
-  .month-group { margin-bottom: 48px; }
-
-  .month-label {
-    font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase;
-    letter-spacing: .8px; padding-bottom: 12px; margin-bottom: 4px;
-    display: flex; align-items: center; gap: 10px;
+  /* ── WEEK RULER ── */
+  .week-ruler {
+    background: var(--surface); border-bottom: 1px solid var(--border); padding: 8px 40px;
+    overflow-x: auto;
   }
-  .month-label::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
-
-  /* ── TIMELINE ITEM ── */
-  .tl-item {
-    display: grid;
-    grid-template-columns: 72px 16px 1fr;
-    gap: 0 16px;
-    padding-bottom: 28px;
+  .ruler-inner { max-width: 820px; margin: 0 auto; display: flex; gap: 0; position: relative; }
+  .ruler-week {
+    flex: 1; text-align: center; font-size: 10px; color: var(--muted2);
+    padding: 2px 0; border-right: 1px solid var(--border2); min-width: 36px;
     position: relative;
   }
+  .ruler-week:first-child { border-left: 1px solid var(--border2); }
+  .ruler-week.done-w   { background: var(--green-bg); color: var(--green); font-weight: 600; }
+  .ruler-week.active-w { background: var(--yellow-bg); color: var(--yellow); font-weight: 700; }
+  .ruler-week.remain-w { background: var(--red-bg); color: var(--red); }
+  .ruler-week.late-w   { background: #ffebe9; color: var(--red); font-weight: 600; opacity: 0.85; }
+  .ruler-week .wlabel  { display: block; }
+  .ruler-week .wphase  { display: block; font-size: 8px; opacity: .7; }
 
-  /* date column */
-  .tl-date {
-    text-align: right;
-    padding-top: 4px;
-    flex-shrink: 0;
+  /* ── TIMELINE ── */
+  .tl-wrap { max-width: 820px; margin: 0 auto; padding: 36px 40px 60px; }
+
+  .month-group { margin-bottom: 44px; }
+  .month-label {
+    font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+    letter-spacing: .8px; padding-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
   }
-  .tl-date-day   { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1; }
-  .tl-date-month { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+  .month-label::after { content:''; flex:1; height:1px; background:var(--border2); }
 
-  /* spine column */
+  /* ── ITEM ── */
+  .tl-item {
+    display: grid;
+    grid-template-columns: 60px 18px 1fr;
+    gap: 0 14px;
+    padding-bottom: 24px;
+  }
+
+  .tl-date { text-align: right; padding-top: 3px; }
+  .tl-date-day   { font-size: 19px; font-weight: 700; line-height: 1; }
+  .tl-date-month { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+
   .tl-spine { display: flex; flex-direction: column; align-items: center; position: relative; }
   .tl-dot {
     width: 14px; height: 14px; border-radius: 50%;
-    background: var(--surface); border: 2px solid var(--line);
-    flex-shrink: 0; z-index: 1; margin-top: 5px;
-    transition: border-color .2s;
+    background: var(--surface); border: 2px solid var(--border);
+    flex-shrink: 0; z-index: 1; margin-top: 4px;
   }
-  .tl-dot.done   { border-color: var(--green); background: var(--green-bg); }
-  .tl-dot.active { border-color: var(--blue);  background: var(--blue-bg); }
-  .tl-dot.open   { border-color: var(--border); background: var(--bg); }
+  .tl-dot.done   { border-color: var(--green);  background: var(--green-bg); }
+  .tl-dot.active { border-color: var(--blue);   background: var(--blue-bg); }
+  .tl-dot.late   { border-color: var(--red);    background: var(--red-bg); }
+  .tl-dot.open   { border-color: var(--border2);background: var(--bg); }
   .tl-item:not(:last-child) .tl-spine::after {
     content: '';
-    position: absolute;
-    top: 19px; bottom: -28px;
+    position: absolute; top: 18px; bottom: -24px;
     left: 50%; transform: translateX(-50%);
-    width: 2px;
-    background: var(--border2);
+    width: 2px; background: var(--border2);
   }
 
-  /* card column */
+  /* ── CARD ── */
   .tl-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--r);
-    overflow: hidden;
-    cursor: pointer;
-    transition: box-shadow .15s, border-color .15s;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+    overflow: hidden; transition: box-shadow .15s, border-color .15s;
   }
-  .tl-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,.08); border-color: #b0b9c3; }
-  .tl-card.planned { background: var(--bg); border-style: dashed; }
+  .tl-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,.07); border-color: #b0b9c3; }
+  .tl-card.planned { background: var(--bg); border-style: dashed; border-color: var(--border2); }
+  .tl-card.late-card { border-left: 3px solid var(--red); }
+  .tl-card.urgent { border-left: 3px solid var(--orange); }
 
-  .card-head { padding: 12px 16px 10px; display: flex; gap: 10px; align-items: flex-start; }
+  .card-head { padding: 11px 14px 9px; display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
   .card-head-left { flex: 1; min-width: 0; }
-  .card-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; }
-  .card-sub   { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .card-title { font-size: 13px; font-weight: 600; line-height: 1.3; }
+  .card-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
   .card-badges { display: flex; gap: 5px; align-items: flex-start; flex-wrap: wrap; justify-content: flex-end; flex-shrink: 0; }
 
   .badge {
@@ -142,47 +161,44 @@
     font-size: 11px; font-weight: 500; padding: 2px 8px;
     border-radius: 20px; border: 1px solid; white-space: nowrap;
   }
-  .badge.status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
-  .b-done   { background: var(--green-bg);  border-color: #82cfaa; color: var(--green); }
-  .b-active { background: var(--blue-bg);   border-color: #79c0ff; color: var(--blue); }
-  .b-plan   { background: var(--bg);        border-color: var(--border); color: var(--muted); }
-  .b-exp    { background: var(--purple-bg); border-color: #cfb8f5; color: var(--purple); }
-  .b-warn   { background: var(--yellow-bg); border-color: #d4a017; color: var(--yellow); }
+  .badge.s::before { content:''; width:6px; height:6px; border-radius:50%; background:currentColor; flex-shrink:0; }
+  .b-done   { background:var(--green-bg);  border-color:#82cfaa;  color:var(--green); }
+  .b-active { background:var(--blue-bg);   border-color:#79c0ff;  color:var(--blue);  }
+  .b-plan   { background:var(--bg);        border-color:var(--border); color:var(--muted2); }
+  .b-late   { background:var(--red-bg);    border-color:#ffb3ae;  color:var(--red);   }
+  .b-warn   { background:var(--yellow-bg); border-color:#d4a017;  color:var(--yellow);}
+  .b-exp    { background:var(--purple-bg); border-color:#cfb8f5;  color:var(--purple);}
 
-  .type-badge {
-    font-size: 11px; padding: 2px 8px; border-radius: 4px;
-    border: 1px solid transparent; font-weight: 500;
+  .tb { font-size:11px; padding:2px 8px; border-radius:4px; border:1px solid transparent; font-weight:500; }
+  .t-infra { background:#ddf4ff; color:#0550ae; border-color:#79c0ff; }
+  .t-data  { background:var(--orange-bg); color:var(--orange); border-color:#ffa657; }
+  .t-ml    { background:var(--purple-bg); color:var(--purple); border-color:#cfb8f5; }
+  .t-bi    { background:var(--yellow-bg); color:var(--yellow); border-color:#d4a017; }
+  .t-plan  { background:var(--bg); color:var(--muted2); border-color:var(--border); }
+  .t-del   { background:var(--red-bg); color:var(--red); border-color:#ffb3ae; }
+
+  .card-divider { height:1px; background:var(--border2); margin:0 14px; }
+  .card-body    { padding:9px 14px 13px; }
+
+  .items { list-style:none; display:flex; flex-direction:column; gap:4px; }
+  .items li { display:flex; gap:8px; align-items:baseline; font-size:12.5px; color:var(--muted); line-height:1.5; }
+  .items li::before { content:'·'; color:var(--muted2); font-size:15px; line-height:1; flex-shrink:0; }
+  .items li.dim { opacity:.6; }
+  code { font-family:var(--mono); font-size:11px; background:var(--bg); border:1px solid var(--border2); border-radius:3px; padding:0 4px; color:var(--text); }
+
+  .sh { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin:10px 0 4px; }
+
+  /* ── ALERT BANNERS ── */
+  .banner {
+    border-radius:var(--r); padding:8px 12px; font-size:12px;
+    display:flex; gap:8px; align-items:center; margin-bottom:14px; border:1px solid;
   }
-  .t-infra  { background: #ddf4ff; color: #0550ae; border-color: #79c0ff; }
-  .t-data   { background: #fff1e5; color: #953800; border-color: #ffa657; }
-  .t-ml     { background: var(--purple-bg); color: var(--purple); border-color: #cfb8f5; }
-  .t-bi     { background: var(--yellow-bg); color: var(--yellow); border-color: #d4a017; }
-  .t-sec    { background: var(--red-bg);   color: var(--red);    border-color: #ffb3ae; }
-  .t-plan   { background: var(--bg); color: var(--muted2); border-color: var(--border); }
-
-  .card-divider { height: 1px; background: var(--border2); margin: 0 16px; }
-
-  .card-body { padding: 10px 16px 14px; }
-  .items { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-  .items li {
-    display: flex; gap: 8px; align-items: baseline;
-    font-size: 13px; color: var(--muted); line-height: 1.5;
-  }
-  .items li::before { content: '·'; color: var(--muted2); font-size: 16px; line-height: 1; flex-shrink: 0; }
-  .items li.dim { opacity: .65; }
-  code { font-family: var(--mono); font-size: 11.5px; background: var(--bg); border: 1px solid var(--border2); border-radius: 3px; padding: 0 4px; color: var(--text); }
-
-  .section-head { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin: 10px 0 5px; }
-
-  /* ── PLANNED NOTICE ── */
-  .notice {
-    background: var(--yellow-bg); border: 1px solid #d4a017; border-radius: var(--r);
-    padding: 8px 14px; font-size: 12px; color: var(--yellow);
-    margin-bottom: 16px; display: flex; gap: 8px; align-items: center;
-  }
+  .banner.warn  { background:var(--yellow-bg); border-color:#d4a017; color:var(--yellow); }
+  .banner.alert { background:var(--red-bg);    border-color:#ffb3ae; color:var(--red);    }
+  .banner.info  { background:var(--blue-bg);   border-color:#79c0ff; color:var(--blue);   }
 
   /* ── FOOTER ── */
-  .footer { border-top: 1px solid var(--border); padding: 20px 40px; text-align: center; font-size: 12px; color: var(--muted2); }
+  .footer { border-top:1px solid var(--border); padding:18px 40px; text-align:center; font-size:12px; color:var(--muted2); }
 </style>
 </head>
 <body>
@@ -197,12 +213,14 @@
         <p>ISEP · Pós-Graduação Big Data &amp; Data Science 2024/2025</p>
       </div>
     </div>
-    <div class="header-right">
-      <div class="hstat"><div class="hstat-val">45+</div><div class="hstat-lbl">Commits</div></div>
+    <div class="header-stats">
+      <div class="hst"><div class="hst-v">45+</div><div class="hst-l">Commits</div></div>
       <div class="hdiv"></div>
-      <div class="hstat"><div class="hstat-val">11</div><div class="hstat-lbl">PRs merged</div></div>
+      <div class="hst"><div class="hst-v">11</div><div class="hst-l">PRs</div></div>
       <div class="hdiv"></div>
-      <div class="hstat"><div class="hstat-val g">38%</div><div class="hstat-lbl">Complete</div></div>
+      <div class="hst"><div class="hst-v g">38%</div><div class="hst-l">Complete</div></div>
+      <div class="hdiv"></div>
+      <div class="deadline-pill"><span class="dot"></span>Entrega: 27 Jun · 21 dias</div>
     </div>
   </div>
 </header>
@@ -210,15 +228,34 @@
 <!-- PROGRESS -->
 <div class="progress-row">
   <div class="progress-inner">
-    <div class="prog-label">Progress</div>
+    <div class="prog-label">Week 11 / 14</div>
     <div class="prog-track"><div class="prog-fill" id="pbar"></div></div>
     <div class="phases">
-      <span class="ph done">Phase 1 ✓</span>
-      <span class="ph done">Phase 2 ✓</span>
-      <span class="ph active">Phase 3 ▶</span>
-      <span class="ph open">Phase 4</span>
-      <span class="ph open">Phase 5</span>
+      <span class="ph done">P1 ✓ Setup</span>
+      <span class="ph done">P2 ✓ Pipeline</span>
+      <span class="ph late">P3 ⚠ Alertas</span>
+      <span class="ph late">P4 ⚠ ML</span>
+      <span class="ph open">P5 Entrega</span>
     </div>
+  </div>
+</div>
+
+<!-- WEEK RULER -->
+<div class="week-ruler">
+  <div class="ruler-inner">
+    <div class="ruler-week done-w"><span class="wlabel">W1–2</span><span class="wphase">Setup</span></div>
+    <div class="ruler-week done-w"><span class="wlabel">W3</span><span class="wphase">Pipeline</span></div>
+    <div class="ruler-week done-w"><span class="wlabel">W4</span><span class="wphase">Pipeline</span></div>
+    <div class="ruler-week done-w"><span class="wlabel">W5</span><span class="wphase">Pipeline</span></div>
+    <div class="ruler-week done-w"><span class="wlabel">W6</span><span class="wphase">Streaming</span></div>
+    <div class="ruler-week done-w"><span class="wlabel">W7</span><span class="wphase">Streaming</span></div>
+    <div class="ruler-week done-w"><span class="wlabel">W8 ✓</span><span class="wphase">Marco</span></div>
+    <div class="ruler-week late-w"><span class="wlabel">W9 ⚠</span><span class="wphase">ML late</span></div>
+    <div class="ruler-week late-w"><span class="wlabel">W10 ⚠</span><span class="wphase">ML late</span></div>
+    <div class="ruler-week active-w"><span class="wlabel">W11 ◀</span><span class="wphase">agora ⚠</span></div>
+    <div class="ruler-week remain-w"><span class="wlabel">W12</span><span class="wphase">Relatório</span></div>
+    <div class="ruler-week remain-w"><span class="wlabel">W13</span><span class="wphase">Testes</span></div>
+    <div class="ruler-week remain-w"><span class="wlabel">W14 🎯</span><span class="wphase">27 Jun</span></div>
   </div>
 </div>
 
@@ -227,7 +264,7 @@
 
   <!-- ══ MAY 2026 ══ -->
   <div class="month-group">
-    <div class="month-label">May 2026</div>
+    <div class="month-label">May 2026 — Weeks 9–10</div>
 
     <!-- May 26 -->
     <div class="tl-item">
@@ -237,24 +274,23 @@
         <div class="card-head">
           <div class="card-head-left">
             <div class="card-title">Project Bootstrap — Docker, Kafka &amp; Cassandra Pipeline</div>
-            <div class="card-sub">Phase 1 — Setup &amp; Dados · Weeks 1–2</div>
+            <div class="card-sub">Phase 1 &amp; 2 — Setup + Ingestão · Week 10</div>
           </div>
           <div class="card-badges">
-            <span class="badge status b-done">Completed</span>
-            <span class="type-badge t-infra">Infrastructure</span>
+            <span class="badge s b-done">Completed</span>
+            <span class="tb t-infra">Infrastructure</span>
           </div>
         </div>
         <div class="card-divider"></div>
         <div class="card-body">
           <ul class="items">
-            <li>Full Docker Compose environment: Kafka, Zookeeper, Cassandra, InfluxDB, Grafana, Jupyter, Spark Master + Worker, LocalStack S3</li>
+            <li>Docker Compose completo: Kafka, Cassandra, InfluxDB, Grafana, Jupyter, Spark, LocalStack S3</li>
             <li>5 Kafka topics: <code>sensor-events</code>, <code>satellite-hotspots</code>, <code>weather-data</code>, <code>fire-alerts</code>, <code>data-quality-metrics</code></li>
-            <li>Cassandra schema auto-provisioned: <code>sensor_readings</code> (partitioned by <code>grid_id/hour_bucket</code>, 72h TTL), <code>fire_alerts</code>, <code>risk_predictions</code></li>
-            <li>IoT sensor simulator producer — realistic temperature, humidity, wind readings with statistical variation</li>
-            <li>Consumer pipeline: Kafka → validation → Cassandra + InfluxDB with per-event latency tracking</li>
-            <li>Data quality: per-batch <code>rejected_events</code> and per-event <code>rejected_event_detail</code> written to InfluxDB with <code>grid_id/source</code> tags</li>
-            <li>Grafana dashboard pre-provisioned for pipeline monitoring</li>
-            <li>Docker fixes: Jupyter startup, producer/consumer 15-min health cycles</li>
+            <li>Schema Cassandra auto-provisionado: <code>sensor_readings</code> (particionado por <code>grid_id/hour_bucket</code>, TTL 72h), <code>fire_alerts</code>, <code>risk_predictions</code></li>
+            <li>Producer de sensores IoT simulados — variação estatística realista de temperatura, humidade, vento</li>
+            <li>Consumer Kafka → validação → Cassandra + InfluxDB com tracking de latência por evento</li>
+            <li>Data quality: <code>rejected_event_detail</code> por evento e <code>rejected_events</code> por batch no InfluxDB</li>
+            <li>Dashboard Grafana pré-provisionado para monitorização da pipeline</li>
           </ul>
         </div>
       </div>
@@ -267,26 +303,24 @@
       <div class="tl-card">
         <div class="card-head">
           <div class="card-head-left">
-            <div class="card-title">S3 Data Lake, MLflow Tracking &amp; S3 Writer Module</div>
-            <div class="card-sub">Phase 1→2 — Storage layer · 12 commits</div>
+            <div class="card-title">S3 Data Lake, MLflow &amp; S3 Writer Module</div>
+            <div class="card-sub">Phase 2 — Armazenamento persistente · Week 10 · 12 commits</div>
           </div>
           <div class="card-badges">
-            <span class="badge status b-done">Completed</span>
-            <span class="type-badge t-data">Data Engineering</span>
+            <span class="badge s b-done">Completed</span>
+            <span class="tb t-data">Data Engineering</span>
           </div>
         </div>
         <div class="card-divider"></div>
         <div class="card-body">
           <ul class="items">
-            <li><code>s3_writer.py</code> — Parquet writer partitioned by <code>grid_id / year / month</code>; 111-line unit test suite including client-failure path</li>
-            <li>Consumer updated: validated events written to S3 Parquet after Cassandra — Cassandra errors do not block S3 archival</li>
-            <li>Hotspot buffer flushed gracefully on shutdown</li>
-            <li>MLflow Tracking Server added to Docker Compose, S3 artifact store pointing to <code>forest-risk-models</code> bucket</li>
-            <li>S3 bucket versioning enabled on <code>forest-risk-models</code> for model artifact lineage</li>
-            <li><code>02_mlflow_example.ipynb</code> — validation notebook for MLflow experiment tracking</li>
-            <li><code>init-s3.sh</code> hardened: <code>set -euo pipefail</code>, idempotent bucket creation</li>
-            <li>Healthchecks and startup ordering: LocalStack healthy before MLflow and consumer start</li>
-            <li><code>pyarrow</code> added to requirements; detailed 227-line S3 + MLflow usage guide committed</li>
+            <li><code>s3_writer.py</code> — escrita Parquet particionada por <code>grid_id / year / month</code>; suite de testes com 111 linhas incluindo caminho de falha do cliente</li>
+            <li>Consumer atualizado: eventos validados escritos para S3 Parquet após Cassandra — erros Cassandra não bloqueiam archival S3</li>
+            <li>MLflow Tracking Server adicionado ao Docker Compose, artifact store → bucket <code>forest-risk-models</code></li>
+            <li>Versioning S3 ativado em <code>forest-risk-models</code> para linhagem de artefactos de modelos</li>
+            <li><code>init-s3.sh</code> reforçado: <code>set -euo pipefail</code>, criação idempotente de buckets</li>
+            <li>Healthchecks e ordering de startup: LocalStack saudável antes de MLflow e consumer arrancarem</li>
+            <li><code>pyarrow</code> adicionado aos requirements; guia de uso S3 + MLflow com 227 linhas committed</li>
           </ul>
         </div>
       </div>
@@ -295,7 +329,7 @@
 
   <!-- ══ JUNE 2026 ══ -->
   <div class="month-group">
-    <div class="month-label">June 2026</div>
+    <div class="month-label">June 2026 — Weeks 11–14</div>
 
     <!-- Jun 2 -->
     <div class="tl-item">
@@ -304,24 +338,23 @@
       <div class="tl-card">
         <div class="card-head">
           <div class="card-head-left">
-            <div class="card-title">Spark Structured Streaming Job &amp; Historical NASA FIRMS Load</div>
-            <div class="card-sub">Phase 2→3 — Streaming core · PRs #4–8</div>
+            <div class="card-title">Spark Structured Streaming &amp; Carga Histórica NASA FIRMS</div>
+            <div class="card-sub">Phase 2→3 — Streaming core · Week 11 · PRs #4–8</div>
           </div>
           <div class="card-badges">
-            <span class="badge status b-done">Completed</span>
-            <span class="type-badge t-data">Data Engineering</span>
+            <span class="badge s b-done">Completed</span>
+            <span class="tb t-data">Data Engineering</span>
           </div>
         </div>
         <div class="card-divider"></div>
         <div class="card-body">
           <ul class="items">
-            <li><code>spark_streaming_agregacao.py</code> — 10-min sliding window / 5-min slide; aggregates risk, temp, humidity, wind per <code>grid_id</code>; writes to S3 Parquet</li>
-            <li>Watermark of 2 minutes for late event tolerance; automatic job restart on failure</li>
-            <li>Historical NASA FIRMS loaded: <strong>52,676 hotspots</strong>, 10 zones, 2020–2024 in Parquet to data lake</li>
-            <li><code>grid_id</code> mapped to historical records by lat/lon-to-grid coordinate lookup</li>
-            <li><code>validar_datalake.py</code> — reconstructs partition columns from S3 path for accurate data sampling</li>
-            <li>Spark streaming migrated from LocalStack to real AWS S3 (eu-west-1)</li>
-            <li>Copilot bot fix (PR #8): removed tracked <code>.ipynb_checkpoints</code> from git history</li>
+            <li><code>spark_streaming_agregacao.py</code> — janela deslizante 10 min / slide 5 min; agrega risk, temp, humidade, vento por <code>grid_id</code>; escreve Parquet para S3</li>
+            <li>Watermark de 2 minutos para tolerância de eventos tardios; restart automático em caso de falha</li>
+            <li>Carga histórica NASA FIRMS: <strong>52.676 hotspots</strong>, 10 zonas, 2020–2024 em Parquet no data lake</li>
+            <li><code>grid_id</code> mapeado nos registos históricos por lookup de coordenadas lat/lon</li>
+            <li><code>validar_datalake.py</code> — reconstrói colunas de partição a partir do path S3 para amostragem correta</li>
+            <li>Spark streaming migrado de LocalStack para AWS S3 real (eu-west-1)</li>
           </ul>
         </div>
       </div>
@@ -334,21 +367,21 @@
       <div class="tl-card">
         <div class="card-head">
           <div class="card-head-left">
-            <div class="card-title">Real Data APIs — NASA FIRMS, IPMA &amp; ICNF</div>
-            <div class="card-sub">Phase 2 — Live data ingestion · PRs #9 + #11</div>
+            <div class="card-title">APIs Reais — NASA FIRMS, IPMA &amp; ICNF</div>
+            <div class="card-sub">Phase 2 — Ingestão real · Week 11 · PRs #9 + #11</div>
           </div>
           <div class="card-badges">
-            <span class="badge status b-done">Completed</span>
-            <span class="type-badge t-data">Data Engineering</span>
+            <span class="badge s b-done">Completed</span>
+            <span class="tb t-data">Data Engineering</span>
           </div>
         </div>
         <div class="card-divider"></div>
         <div class="card-body">
           <ul class="items">
-            <li>Producer split: <code>producer-sensores</code> (mock IoT) and <code>producer-apis</code> (real APIs) run as independent services</li>
-            <li>NASA FIRMS real-time hotspot API (free API key), IPMA weather API (temperature, humidity, wind), ICNF land use cartography</li>
-            <li>All credentials moved to <code>.env</code>; Docker Compose uses env substitution; <code>.env.example</code> committed</li>
-            <li>Historical data reloaded with <code>grid_id</code> coordinate mapping — data lake ready to join with <code>agregados_streaming</code></li>
+            <li>Producer dividido em <code>producer-sensores</code> (IoT mock) e <code>producer-apis</code> (APIs externas reais) como serviços independentes</li>
+            <li>NASA FIRMS API em tempo real; IPMA (temperatura, humidade, vento por estação); ICNF (cartografia florestal)</li>
+            <li>Credenciais movidas para <code>.env</code>; Docker Compose usa substituição de env; <code>.env.example</code> committed</li>
+            <li>Dados históricos recarregados com mapeamento <code>grid_id</code> — data lake pronto para join com <code>agregados_streaming</code></li>
           </ul>
         </div>
       </div>
@@ -361,193 +394,223 @@
       <div class="tl-card">
         <div class="card-head">
           <div class="card-head-left">
-            <div class="card-title">Exploratory Data Analysis — NASA FIRMS &amp; ERA5 Climate Data</div>
-            <div class="card-sub">Phase 4 — Data understanding · PR #10 + 1 cleanup pending</div>
+            <div class="card-title">Análise Exploratória — NASA FIRMS &amp; ERA5 Copernicus</div>
+            <div class="card-sub">Phase 4 — Data understanding · Week 11 · PR #10</div>
           </div>
           <div class="card-badges">
-            <span class="badge status b-warn">Partial</span>
-            <span class="type-badge t-ml">Data Science</span>
+            <span class="badge s b-done">Completed</span>
+            <span class="tb t-ml">Data Science</span>
           </div>
         </div>
         <div class="card-divider"></div>
         <div class="card-body">
-          <div class="section-head">NASA FIRMS EDA — merged</div>
+          <div class="sh">NASA FIRMS EDA</div>
           <ul class="items">
-            <li><code>EDA_NASA.py</code> — processes SNPP / NOAA-20 CSVs, filters Portugal bounding box, outputs clean Parquet + CSV by year</li>
-            <li>Auto-generates <code>eda_relatorio.html</code>: hotspot count by year, monthly seasonality, FRP distribution, lat/lon scatter map</li>
-            <li>HTML report is self-contained (all charts base64-embedded), shareable without dependencies</li>
+            <li><code>EDA_NASA.py</code> — processa CSVs SNPP / NOAA-20, filtra Portugal, gera <code>eda_relatorio.html</code> com gráficos base64-embedded</li>
+            <li>Outputs: Parquet e CSV limpos por ano em <code>Filtragem_Parquet/</code> e <code>Filtragem_CSV/</code></li>
           </ul>
-          <div class="section-head">ERA5 Copernicus Climate EDA — pending merge</div>
+          <div class="sh">ERA5 Copernicus Climate EDA</div>
           <ul class="items">
-            <li><code>EDA_ERA5.py</code> — reads ERA5 NetCDF/ZIP from Copernicus, filters Portugal, outputs <code>ERA5_CSV/</code> + <code>ERA5_Parquet/</code> by year</li>
-            <li>Uses project risk thresholds: <code>TEMP_RISCO=35°C</code>, <code>HUM_RISCO=20%</code>, <code>VENTO_RISCO=30 km/h</code> — matches Spark alert rules</li>
-            <li>Enables correlation of ERA5 climate conditions with NASA FIRMS fire detections — key CRISP-DM data preparation step</li>
+            <li><code>EDA_ERA5.py</code> — lê NetCDF/ZIP do Copernicus, filtra Portugal, outputs por ano em CSV + Parquet</li>
+            <li>Usa limiares do projeto: <code>TEMP=35°C</code>, <code>HUM=20%</code>, <code>VENTO=30 km/h</code> — alinha com regras de alerta do Spark</li>
+            <li>Permite correlação ERA5 × NASA FIRMS — passo chave de preparação de dados para CRISP-DM</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- Jun 5 — BI & DevOps -->
+    <!-- Jun 5 — BI -->
     <div class="tl-item">
       <div class="tl-date"><div class="tl-date-day">5</div><div class="tl-date-month">Jun</div></div>
       <div class="tl-spine"><div class="tl-dot active"></div></div>
       <div class="tl-card">
         <div class="card-head">
           <div class="card-head-left">
-            <div class="card-title">Power BI Dashboards (3 pages), AWS Security &amp; MLflow Spikes</div>
-            <div class="card-sub">Phase 5 — BI deliverable · 23 commits · 30 files · 3,639 lines · pending merge</div>
+            <div class="card-title">Power BI (3 páginas), AWS Security &amp; Spikes MLflow</div>
+            <div class="card-sub">Phase 5 — BI deliverable · Week 11 · 23 commits · 3.639 linhas · merge pendente</div>
           </div>
           <div class="card-badges">
-            <span class="badge status b-active">In Progress</span>
-            <span class="type-badge t-bi">BI / DevOps</span>
+            <span class="badge s b-active">Em curso</span>
+            <span class="tb t-bi">BI / DevOps</span>
           </div>
         </div>
         <div class="card-divider"></div>
         <div class="card-body">
-          <div class="section-head">Power BI — 3 Dashboard Pages</div>
+          <div class="sh">Power BI — 3 Dashboards</div>
           <ul class="items">
-            <li>All pages connect via Athena ODBC DSN (<code>ForestRiskAthena</code>, eu-west-1, Import mode)</li>
-            <li><strong>Page 1 — Real-time Risk Map:</strong> bubbles over Portugal colored by <code>risk_medio</code> (green &lt;40 / yellow 40–70 / red &gt;70), size = <code>n_leituras</code>; KPIs: critical zone + global avg; source: <code>agregados_streaming</code> Parquet</li>
-            <li><strong>Page 2 — Predictive Dashboard:</strong> map + top-10 bar + sortable table + disclaimer "Dados simulados — modelo em desenvolvimento"; source: <code>mock_predictions</code> CSV</li>
-            <li><strong>Page 3 — Historical Analysis:</strong> KPI row (total hotspots, avg FRP, worst year via DAX), bar by year, heatmap month×year, lat/lon bubble map; source: <code>viirs_hotspots_by_year</code> view</li>
-            <li>Build guides committed for all 3 pages (82 + 80 + 89 lines in <code>docs/power-bi/</code>)</li>
+            <li>Todas as páginas via Athena ODBC (<code>ForestRiskAthena</code>, eu-west-1, Import mode)</li>
+            <li><strong>Página 1 — Mapa em Tempo Real:</strong> bubbles por <code>risk_medio</code> (verde &lt;40 / amarelo 40–70 / vermelho &gt;70), tamanho = <code>n_leituras</code></li>
+            <li><strong>Página 2 — Dashboard Preditivo:</strong> mapa + top-10 zonas + tabela + disclaimer "modelo em desenvolvimento"; fonte: <code>mock_predictions</code></li>
+            <li><strong>Página 3 — Análise Histórica:</strong> KPIs (total hotspots, FRP médio, pior ano via DAX), bar por ano, heatmap mês×ano, mapa lat/lon</li>
           </ul>
-          <div class="section-head">AWS Athena DDL &amp; Security</div>
+          <div class="sh">AWS Athena DDL &amp; Segurança</div>
           <ul class="items">
-            <li><code>create_agregados_streaming_table.sql</code> — external table over Parquet in <code>s3://forest-risk-datalake/agregados_streaming/</code></li>
-            <li><code>create_mock_predictions_table.sql</code> — external table over CSV with <code>OpenCSVSerde</code>; DDL simplified to fix <code>ParseException</code></li>
-            <li><code>forestrisk-user-policy.json</code> — least-privilege IAM: S3 scoped to <code>forest-risk-*</code> buckets only, Athena scoped to <code>forest_risk</code> database</li>
-            <li>S3 hardening checklist: SSE-S3 encryption, versioning, public access block on all buckets</li>
-            <li>CloudTrail configured: S3 + Athena API call logging to <code>forest-risk-logs</code> bucket</li>
+            <li>DDL Athena committed como SQL: <code>agregados_streaming</code> (Parquet) e <code>mock_predictions</code> (CSV OpenCSVSerde)</li>
+            <li>IAM least-privilege JSON (<code>forestrisk-user-policy.json</code>): S3 scoped a <code>forest-risk-*</code>, Athena a <code>forest_risk</code> database</li>
+            <li>S3 hardening: SSE-S3, versioning, block public access; CloudTrail em <code>forest-risk-logs</code></li>
           </ul>
-          <div class="section-head">Mock Data &amp; ML Spikes</div>
+          <div class="sh">Mock Data &amp; Spikes</div>
           <ul class="items">
-            <li><code>generate_mock_predictions.py</code> + <code>mock_predictions.csv</code> — 50 rows across Portugal regions, risk 0–100, confidence 60–95%, model v0.1-mock</li>
-            <li><code>ml.ipynb</code> — spike: RandomForestRegressor + MLflow <code>autolog()</code>; validates MLflow tracking pattern for Phase 4</li>
-            <li><code>llm.ipynb</code> — spike: MLflow + OpenAI GPT-3.5-turbo log model + evaluation; proves MLflow model registry concept</li>
-            <li>Design spec (182 lines) and implementation plan (872 lines) committed to <code>docs/superpowers/</code></li>
+            <li><code>mock_predictions.csv</code> — 50 linhas, regiões Portugal, risco 0–100, confiança 60–95%, model v0.1-mock</li>
+            <li><code>ml.ipynb</code> — spike: RandomForest + MLflow <code>autolog()</code>; valida padrão de tracking para Phase 4</li>
+            <li><code>llm.ipynb</code> — spike: MLflow + OpenAI GPT-3.5-turbo; prova conceito de model registry para LLMs</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- Jun – Planned Phase 3 -->
-    <div class="notice">⚠ Work below is planned from the project PDF roadmap — not yet started in the repository.</div>
+    <!-- ── MARCO INTERMÉDIO — May 17 (Week 8) — NOT MET ── -->
+    <div class="tl-item">
+      <div class="tl-date"><div class="tl-date-day">17</div><div class="tl-date-month">Mai</div></div>
+      <div class="tl-spine"><div class="tl-dot late"></div></div>
+      <div class="tl-card" style="border-left:3px solid var(--red);background:var(--red-bg);">
+        <div class="card-head">
+          <div class="card-head-left">
+            <div class="card-title" style="color:var(--red);">⚠ Marco Intermédio (Week 8) — Não atingido</div>
+            <div class="card-sub">Docx §4 — "Se nesta semana o sistema core está funcional, a entrega final está garantida"</div>
+          </div>
+          <div class="card-badges">
+            <span class="badge s b-late">Não atingido</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-body">
+          <ul class="items">
+            <li class="dim">Critério: dados a entrar no Kafka, alertas a sair no topic <code>fire-alerts</code>, mapa Power BI a atualizar</li>
+            <li class="dim">Estado real: Kafka + Cassandra provisionados ✓ — Spark Streaming join 3 streams ✗ — alertas automáticos ✗ — Power BI mapa ✗</li>
+            <li class="dim">Impacto: fases 4 (ML) e 5 (Relatório) ficaram sem base estável — acumulam atraso</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
+    <!-- ── SEPARATOR: REMAINING 3 WEEKS ── -->
+    <div class="banner alert">
+      🚨 <strong>3 semanas até à entrega (27 Jun).</strong> Phase 3 (Weeks 6–8) e Phase 4 (Weeks 9–11) estão ambas em atraso — streaming com join de 3 streams, motor de alertas e pipeline ML CRISP-DM ainda não implementados. Phase 5 relatório começa na Week 12.
+    </div>
+
+    <!-- Jun 9 — Phase 3 LATE -->
     <div class="tl-item">
       <div class="tl-date"><div class="tl-date-day">9</div><div class="tl-date-month">Jun</div></div>
-      <div class="tl-spine"><div class="tl-dot open"></div></div>
-      <div class="tl-card planned">
+      <div class="tl-spine"><div class="tl-dot late"></div></div>
+      <div class="tl-card planned late-card">
         <div class="card-head">
           <div class="card-head-left">
-            <div class="card-title">3-Stream Join, Composite Risk Index &amp; Fire Alert Engine</div>
-            <div class="card-sub">Phase 3 — Real-time alerts · Weeks 6–8 · Marco crítico: Week 8</div>
+            <div class="card-title">Join 3 Streams, Índice de Risco Composto &amp; Motor de Alertas</div>
+            <div class="card-sub">Phase 3 — Em atraso (previsto Weeks 6–8 / antes de 17 Mai) · Week 12</div>
           </div>
           <div class="card-badges">
-            <span class="badge status b-plan">Planned</span>
-            <span class="type-badge t-plan">Streaming</span>
+            <span class="badge s b-late">Em atraso</span>
+            <span class="tb t-plan">Streaming</span>
           </div>
         </div>
         <div class="card-divider"></div>
         <div class="card-body">
           <ul class="items">
-            <li class="dim">Join 3 Kafka streams: <code>sensor-events</code> + <code>satellite-hotspots</code> + <code>weather-data</code> with 2-min watermark late-event handling</li>
-            <li class="dim">Composite risk index (0–100) with configurable per-variable weights</li>
-            <li class="dim">Alert rule: temperature &gt; 35°C AND humidity &lt; 20% AND wind &gt; 30 km/h → CRITICAL; tiered LOW / MEDIUM / HIGH / CRITICAL</li>
-            <li class="dim"><code>fire-alerts</code> topic populated; alerts persisted to <code>fire_alerts</code> Cassandra table</li>
-            <li class="dim">Backtest on 2017 and 2022 high-severity years to validate sensitivity</li>
-            <li class="dim">Power BI Page 1 auto-refresh every 5 minutes from Athena</li>
+            <li class="dim">Join de 3 streams Kafka: <code>sensor-events</code> + <code>satellite-hotspots</code> + <code>weather-data</code> com watermark de 2 min</li>
+            <li class="dim">Índice de risco composto (0–100) com pesos configuráveis por variável</li>
+            <li class="dim">Regra de alerta: temperatura &gt; 35°C E humidade &lt; 20% E vento &gt; 30 km/h → CRITICAL; níveis LOW / MEDIUM / HIGH / CRITICAL</li>
+            <li class="dim">Topic <code>fire-alerts</code> populado; alertas persistidos na tabela <code>fire_alerts</code> do Cassandra</li>
+            <li class="dim">Backtest com dados de 2017 e 2022 para validar sensibilidade dos alertas</li>
+            <li class="dim">Power BI Página 1 com refresh automático a cada 5 minutos via Athena</li>
           </ul>
         </div>
       </div>
     </div>
+
+    <!-- Jun 16 — Phase 4 -->
+    <div class="tl-item">
+      <div class="tl-date"><div class="tl-date-day">16</div><div class="tl-date-month">Jun</div></div>
+      <div class="tl-spine"><div class="tl-dot open"></div></div>
+      <div class="tl-card planned late-card">
+        <div class="card-head">
+          <div class="card-head-left">
+            <div class="card-title">Pipeline ML CRISP-DM — Random Forest + XGBoost</div>
+            <div class="card-sub">Phase 4 — Em atraso (previsto Weeks 9–11 / antes de 7 Jun) · Week 12</div>
+          </div>
+          <div class="card-badges">
+            <span class="badge s b-late">Em atraso</span>
+            <span class="tb t-ml">Machine Learning</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-body">
+          <ul class="items">
+            <li class="dim">Spark batch job para preparar dataset de treino a partir do S3 (NASA FIRMS + ERA5)</li>
+            <li class="dim">Feature engineering: agregados por grid, médias móveis, índices compostos, correlação NASA×ERA5</li>
+            <li class="dim">Random Forest e XGBoost com cross-validation; objetivo F1 &gt; 0.80 na classe HIGH</li>
+            <li class="dim">Modelo serializado via MLflow para bucket <code>forest-risk-models</code> (infraestrutura já pronta)</li>
+            <li class="dim">Previsões (24h / 48h / 72h) escritas na tabela <code>risk_predictions</code> do Cassandra</li>
+            <li class="dim">Power BI Página 2 atualizada: substituir mock_predictions por output real do modelo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jun 23 — Phase 5 -->
+    <div class="tl-item">
+      <div class="tl-date"><div class="tl-date-day">23</div><div class="tl-date-month">Jun</div></div>
+      <div class="tl-spine"><div class="tl-dot open"></div></div>
+      <div class="tl-card planned">
+        <div class="card-head">
+          <div class="card-head-left">
+            <div class="card-title">Relatório Técnico, Testes de Carga &amp; Demo Final</div>
+            <div class="card-sub">Phase 5 — Entrega · Weeks 12–14 · Deadline 27 Jun</div>
+          </div>
+          <div class="card-badges">
+            <span class="badge s b-plan">Planeado</span>
+            <span class="tb t-del">Entrega</span>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-body">
+          <ul class="items">
+            <li class="dim">Teste de carga: 10.000 eventos/segundo pelo Kafka end-to-end</li>
+            <li class="dim">Validação do modelo com dados de 2023 (não vistos durante o treino)</li>
+            <li class="dim">Relatório técnico — 7 secções: Introdução · Estado da Arte · Arquitetura · Implementação · ML · Segurança/RGPD · Conclusões</li>
+            <li class="dim">Power BI polido para modo de apresentação</li>
+            <li class="dim">Demo ao vivo: injetar evento HIGH → Kafka → Spark → alerta no dashboard em &lt; 60 segundos</li>
+            <li class="dim">Apresentação oral: 20 min + 10 min Q&amp;A; <code>docker compose up</code> verificado</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jun 27 — Deadline -->
+    <div class="tl-item">
+      <div class="tl-date"><div class="tl-date-day">27</div><div class="tl-date-month">Jun</div></div>
+      <div class="tl-spine"><div class="tl-dot" style="border-color:var(--red);background:var(--red);width:16px;height:16px;margin-top:3px;"></div></div>
+      <div class="tl-card" style="border-color:var(--red);background:var(--red-bg);">
+        <div class="card-head" style="cursor:default;">
+          <div class="card-head-left">
+            <div class="card-title" style="color:var(--red);">🎯 Entrega Final — ISEP Pós-Graduação</div>
+            <div class="card-sub">Week 14 · Sistema funcional + Relatório técnico + Apresentação oral</div>
+          </div>
+          <div class="card-badges">
+            <span class="badge" style="background:#fff;border-color:#ffb3ae;color:var(--red);font-weight:700;">Deadline</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /june -->
-
-  <!-- ══ JULY 2026 ══ -->
-  <div class="month-group">
-    <div class="month-label">July 2026</div>
-
-    <div class="tl-item">
-      <div class="tl-date"><div class="tl-date-day">6</div><div class="tl-date-month">Jul</div></div>
-      <div class="tl-spine"><div class="tl-dot open"></div></div>
-      <div class="tl-card planned">
-        <div class="card-head">
-          <div class="card-head-left">
-            <div class="card-title">CRISP-DM ML Pipeline — Fire Risk Prediction (Random Forest + XGBoost)</div>
-            <div class="card-sub">Phase 4 — Machine Learning · Weeks 9–11</div>
-          </div>
-          <div class="card-badges">
-            <span class="badge status b-plan">Planned</span>
-            <span class="type-badge t-ml">Machine Learning</span>
-          </div>
-        </div>
-        <div class="card-divider"></div>
-        <div class="card-body">
-          <ul class="items">
-            <li class="dim">Spark batch job: prepare ML training dataset from S3 (NASA FIRMS + ERA5 features)</li>
-            <li class="dim">Feature engineering: grid aggregates, rolling averages, composite indices, NASA×ERA5 correlation</li>
-            <li class="dim">Random Forest and XGBoost with cross-validation; target F1 &gt; 0.80 on HIGH fire risk class</li>
-            <li class="dim">Model serialized via MLflow into <code>forest-risk-models</code> S3 bucket (infrastructure ready)</li>
-            <li class="dim">Risk predictions (24h / 48h / 72h) written to <code>risk_predictions</code> Cassandra table</li>
-            <li class="dim">Power BI Page 2 updated: replace mock data with real model output</li>
-            <li class="dim">Automatic weekly retraining pipeline via Spark batch job</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div><!-- /july -->
-
-  <!-- ══ AUGUST 2026 ══ -->
-  <div class="month-group">
-    <div class="month-label">August 2026</div>
-
-    <div class="tl-item">
-      <div class="tl-date"><div class="tl-date-day">3</div><div class="tl-date-month">Aug</div></div>
-      <div class="tl-spine"><div class="tl-dot open"></div></div>
-      <div class="tl-card planned">
-        <div class="card-head">
-          <div class="card-head-left">
-            <div class="card-title">Load Testing, Technical Report &amp; Final Presentation</div>
-            <div class="card-sub">Phase 5 — Delivery · Weeks 12–14 · Deadline ~Aug 31</div>
-          </div>
-          <div class="card-badges">
-            <span class="badge status b-plan">Planned</span>
-            <span class="type-badge t-plan">Delivery</span>
-          </div>
-        </div>
-        <div class="card-divider"></div>
-        <div class="card-body">
-          <ul class="items">
-            <li class="dim">Load test: 10,000 events/second through Kafka end-to-end</li>
-            <li class="dim">Model validation on 2023 held-out data (unseen during training)</li>
-            <li class="dim">Technical report — 7 sections: Introduction · State of Art · Architecture · Implementation · ML · Security/RGPD · Conclusions</li>
-            <li class="dim">Power BI dashboards polished for presentation mode</li>
-            <li class="dim">Live demo: inject HIGH risk event → Kafka → Spark → alert in dashboard in &lt; 60 seconds</li>
-            <li class="dim">Oral presentation: 20 min + 10 min Q&amp;A; one-command <code>docker compose up</code> verified</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div><!-- /august -->
-
 </div><!-- /tl-wrap -->
 
 <footer class="footer">
-  Forest Risk Monitoring System · ISEP · 2024/2025 · Generated 2026-06-06
+  Forest Risk Monitoring System · ISEP · 2024/2025 · Gerado a 2026-06-06
 </footer>
 
 <script>
   window.addEventListener('load', () => {
-    setTimeout(() => { document.getElementById('pbar').style.width = '38%'; }, 300);
+    setTimeout(() => { document.getElementById('pbar').style.width = '78%'; }, 300);
   });
-
-  document.querySelectorAll('.tl-card').forEach(card => {
-    const head = card.querySelector('.card-head');
-    const body = card.querySelector('.card-body');
-    const div  = card.querySelector('.card-divider');
-    if (!head || !body) return;
-    head.style.cursor = 'pointer';
-    head.addEventListener('click', () => {
+  document.querySelectorAll('.card-head').forEach(h => {
+    h.addEventListener('click', () => {
+      const card = h.closest('.tl-card');
+      if (!card) return;
+      const body = card.querySelector('.card-body');
+      const div  = card.querySelector('.card-divider');
+      if (!body) return;
       const hidden = body.style.display === 'none';
       body.style.display = hidden ? '' : 'none';
       if (div) div.style.display = hidden ? '' : 'none';
