@@ -238,6 +238,58 @@
 
     .expand-icon { margin-left: 8px; font-size: 11px; display: inline-block; }
     .expand-icon.open { transform: rotate(180deg); }
+
+    .tech-stack {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 20px;
+      margin-bottom: 40px;
+    }
+    .tech-stack h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .tech-category {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .tech-cat-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+    .tech-cat-items {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+    }
+    .tech-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 6px;
+      border-radius: 3px;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .tech-item code {
+      font-size: 10px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: var(--muted2);
+    }
   </style>
 </head>
 <body>
@@ -265,14 +317,100 @@
         <div class="stat-value" id="total-tasks">0</div>
       </div>
       <div class="stat-box">
-        <div class="stat-label">Core Technologies</div>
-        <div class="stat-value">Spark · ML · AWS</div>
+        <div class="stat-label">Core Stack</div>
+        <div class="stat-value">Kafka · Spark · Cassandra</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">ML & Data</div>
+        <div class="stat-value">XGBoost · MLflow · S3</div>
       </div>
     </div>
   </div>
 </header>
 
-<div class="tl-wrap" id="timeline"></div>
+<div class="tl-wrap">
+
+  <div class="tech-stack">
+    <h3>📦 Complete Technology Stack</h3>
+    <div style="font-size: 11px; color: var(--muted); margin-bottom: 14px;">
+      <strong>BI_DevOps branch (production)</strong> · Real AWS · ML-ready<br/>
+      <strong>Other branches</strong> · LocalStack for local dev · Extended data sources
+    </div>
+    <div class="tech-grid">
+      <div class="tech-category">
+        <div class="tech-cat-label">📨 Stream Processing</div>
+        <div class="tech-cat-items">
+          <div class="tech-item">Apache Kafka <code>7.5.0</code></div>
+          <div class="tech-item">Apache Spark <code>3.5.0</code></div>
+          <div class="tech-item">Apache Zookeeper <code>7.5.0</code></div>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-cat-label">🗄️ Databases & Storage</div>
+        <div class="tech-cat-items">
+          <div class="tech-item">Apache Cassandra <code>4.1</code></div>
+          <div class="tech-item">InfluxDB <code>2.7</code></div>
+          <div class="tech-item">AWS S3 (BI_DevOps)</div>
+          <div class="tech-item">LocalStack <code>3.0</code> (Dev)</div>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-cat-label">🤖 Machine Learning</div>
+        <div class="tech-cat-items">
+          <div class="tech-item">XGBoost <code>2.0.3</code></div>
+          <div class="tech-item">Scikit-learn <code>1.4.0</code></div>
+          <div class="tech-item">MLflow <code>2.11.1</code></div>
+          <div class="tech-item">NumPy / Pandas</div>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-cat-label">📊 Analytics & BI</div>
+        <div class="tech-cat-items">
+          <div class="tech-item">Grafana <code>10.2.0</code></div>
+          <div class="tech-item">AWS Athena (SQL)</div>
+          <div class="tech-item">Power BI (Dashboards)</div>
+          <div class="tech-item">Jupyter Lab <code>3.5.0</code></div>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-cat-label">✅ Data Quality & Validation</div>
+        <div class="tech-cat-items">
+          <div class="tech-item">Great Expectations <code>0.18.15</code></div>
+          <div class="tech-item">PyArrow <code>14.0+</code></div>
+          <div class="tech-item">Parquet (Columnar)</div>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-cat-label">☁️ Cloud & DevOps</div>
+        <div class="tech-cat-items">
+          <div class="tech-item">AWS (S3, Athena, IAM)</div>
+          <div class="tech-item">Docker <code>latest</code></div>
+          <div class="tech-item">Docker Compose</div>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-cat-label">🐍 Languages & Drivers</div>
+        <div class="tech-cat-items">
+          <div class="tech-item">Python <code>3.x</code></div>
+          <div class="tech-item">Cassandra-Driver <code>3.29.1</code></div>
+          <div class="tech-item">Kafka-Python <code>2.0.2</code></div>
+          <div class="tech-item">InfluxDB-Client <code>1.38.0</code></div>
+        </div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-cat-label">📈 Visualization & Notebooks</div>
+        <div class="tech-cat-items">
+          <div class="tech-item">Matplotlib <code>3.8.2</code></div>
+          <div class="tech-item">Seaborn <code>0.13.1</code></div>
+          <div class="tech-item">Plotly <code>5.18.0</code></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="timeline"></div>
+
+</div>
 
 <footer class="footer">
   <p>📚 Educational Project Timeline · Click to expand details · ☐ Track your progress</p>
